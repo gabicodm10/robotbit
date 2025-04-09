@@ -1,15 +1,19 @@
 radio.onReceivedValue(function (name, value) {
+    if ("onoff" == name) {
+        if (value == 1) {
+            robotonoff = 1
+        }
+    }
+    if ("onoff" == name) {
+        if (value == 0) {
+            robotonoff = 0
+        }
+    }
     if ("x" == name) {
         x = value / 4
     }
     if ("y" == name) {
         y = value / 4
-    }
-    if (("onoff" as any) == ("1" as any)) {
-        robotonoff = 1
-    }
-    if (("onoff" as any) == ("0" as any)) {
-        robotonoff = 0
     }
 })
 let robotonoff = 0

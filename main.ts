@@ -5,9 +5,17 @@ radio.onReceivedValue(function (name, value) {
     if ("y" == name) {
         y = value / 4
     }
+    if (("onoff" as any) == ("1" as any)) {
+        robotonoff = 1
+    }
+    if (("onoff" as any) == ("0" as any)) {
+        robotonoff = 0
+    }
 })
+let robotonoff = 0
 let x = 0
 let y = 0
+let onoff = 0
 basic.showLeds(`
     . . # . .
     . # # # .
@@ -22,7 +30,7 @@ basic.forever(function () {
     robotbit.MotorRunDual(
     robotbit.Motors.M1A,
     y + x,
-    robotbit.Motors.M1A,
+    robotbit.Motors.M2A,
     y - x
     )
 })

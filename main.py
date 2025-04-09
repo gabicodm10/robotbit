@@ -17,8 +17,9 @@ basic.show_leds("""
     """)
 y = 0
 x = 0
-radio.set_group(6)
+radio.set_group(5)
 
 def on_forever():
     robotbit.motor_run_dual(robotbit.Motors.M1A, y + x, robotbit.Motors.M1A, y - x)
 basic.forever(on_forever)
+

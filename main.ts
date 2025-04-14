@@ -1,25 +1,17 @@
 radio.onReceivedValue(function (name, value) {
     if ("onoff" == name) {
         if (value == 1) {
+            basic.showIcon(IconNames.Yes)
             robotonoff = 1
         }
     }
-    if ("onoff" == name) {
-        if (value == 0) {
-            robotonoff = 0
-        }
-    }
-    if ("x" == name) {
-        x = value / 4
-    }
-    if ("y" == name) {
-        y = value / 4
-    }
 })
 let robotonoff = 0
-let x = 0
-let y = 0
-let onoff = 0
+let capD = DigitalPin.P14
+pins.setPull(DigitalPin.P14, PinPullMode.PullUp)
+let capG = DigitalPin.P13
+pins.setPull(DigitalPin.P13, PinPullMode.PullUp)
+robotonoff = 0
 basic.showLeds(`
     . # . # .
     . . . . .
@@ -27,11 +19,26 @@ basic.showLeds(`
     . # # # .
     . . . . .
     `)
-y = 0
-x = 0
+let y = 0
+let x = 0
 radio.setGroup(5)
 basic.forever(function () {
-    if (("robotonoff" as any) == ("1" as any)) {
+    if (pins.digitalReadPin(DigitalPin.P0) == 1) {
+        basic.showString("G")
+    } else {
+        basic.clearScreen()
+    }
+    if (pins.digitalReadPin(DigitalPin.P0) == 1) {
+        basic.showString("D")
+    } else {
+        basic.clearScreen()
+    }
+    if (pins.digitalReadPin(DigitalPin.P14) == 1) {
+        basic.showIcon(IconNames.Butterfly)
+        robotbit.MotorStopAll()
+        basic.pause(500)
+    }
+    if (robotonoff == 1) {
         robotbit.MotorRunDual(
         robotbit.Motors.M1A,
         y + x,
@@ -39,7 +46,7 @@ basic.forever(function () {
         y - x
         )
     }
-    if (("robotonoff" as any) == ("0" as any)) {
+    if (robotonoff == 0) {
         robotbit.MotorRunDual(
         robotbit.Motors.M1A,
         0,

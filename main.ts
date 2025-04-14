@@ -23,22 +23,31 @@ let y = 0
 let x = 0
 radio.setGroup(5)
 basic.forever(function () {
-    if (pins.digitalReadPin(DigitalPin.P0) == 1) {
-        basic.showString("G")
-    } else {
-        basic.clearScreen()
-    }
-    if (pins.digitalReadPin(DigitalPin.P0) == 1) {
-        basic.showString("D")
-    } else {
-        basic.clearScreen()
-    }
-    if (pins.digitalReadPin(DigitalPin.P14) == 1) {
-        basic.showIcon(IconNames.Butterfly)
-        robotbit.MotorStopAll()
-        basic.pause(500)
-    }
     if (robotonoff == 1) {
+        if (pins.digitalReadPin(DigitalPin.P14) == 1) {
+            basic.showString("G")
+            robotbit.MotorRunDual(
+            robotbit.Motors.M1A,
+            0,
+            robotbit.Motors.M1A,
+            0
+            )
+            basic.pause(500)
+        } else {
+            basic.clearScreen()
+        }
+        if (pins.digitalReadPin(DigitalPin.P13) == 1) {
+            basic.showString("D")
+            robotbit.MotorRunDual(
+            robotbit.Motors.M1A,
+            0,
+            robotbit.Motors.M1A,
+            0
+            )
+            basic.pause(500)
+        } else {
+            basic.clearScreen()
+        }
         robotbit.MotorRunDual(
         robotbit.Motors.M1A,
         y + x,
